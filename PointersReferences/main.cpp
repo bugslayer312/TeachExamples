@@ -7,25 +7,39 @@ struct Distance
     float inches;
 };
 
+void Add(Distance* d1, Distance const* d2)
+{
+    d1->feet += d2->feet;
+    d1->inches += d2->inches;
+    if (d1->inches >= 12.0f)
+    {
+        d1->feet += 1;
+        d1->inches -= 12.0f;
+    }
+}
+
+void Substract(Distance* d1, Distance const* d2)
+{
+    d1->feet -= d2->feet;
+    d1->inches -= d2->inches;
+    if (d1->inches < 0)
+    {
+        d1->inches += 12.0f;
+        d1->feet -= 1;
+    }
+}
+
 Distance Summ(Distance const* d1, Distance const* d2)
 {
-    Distance result = {d1->feet + d2->feet, d1->inches + d2->inches};
-    if (result.inches >= 12.0f)
-    {
-        result.feet += 1;
-        result.inches -= 12.0f;
-    }
+    Distance result = *d1;
+    Add(&result, d2);
     return result;
 }
 
 Distance Difference(Distance const* d1, Distance const* d2)
 {
-    Distance result = {d1->feet - d2->feet, d1->inches - d2->inches};
-    if (result.inches < 0)
-    {
-        result.inches += 12.0f;
-        result.feet -= 1;
-    }
+    Distance result = *d1;
+    Substract(&result, d2);
     return result;
 }
 
@@ -48,8 +62,10 @@ int main()
 {
     Distance d1 = {3, 5.0f};
     Distance d2 = {2, 8.0f};
-    Distance summ = Summ(&d1, &d2);
-    Distance sub = Difference(&d1, &d2);
+    Distance summ = d1;
+    Add(&summ, &d2);
+    Distance diff = d1;
+    Substract(&diff, &d2);
     
     Print(&d1);
     std::cout << " + ";
@@ -62,7 +78,7 @@ int main()
     std::cout << " - ";
     Print(&d2);
     std::cout << " = ";
-    Print(&sub);
+    Print(&diff);
     std::cout << std::endl;
     return 0;
 }
