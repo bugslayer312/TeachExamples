@@ -1,1 +1,4 @@
-add_executable (PointersReferences main.cpp)
+add_executable (PointersReferences 
+  ArrayUtils.cpp
+  ArrayUtils.h
+  main.cpp)
