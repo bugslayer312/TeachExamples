@@ -5,30 +5,23 @@
 
 int main()
 {
-    int a = 1;
-    int b = 2;
-
-    int& refa = a;
-    std::cout << "refa = " << refa << std::endl << std::endl;
-
-    refa = 5;
-    std::cout << "refa = " << refa << ", a = " << a << std::endl;
-    std::cout << "pointer to refa = " << &refa << ", pointer to a = " << &a << std::endl << std::endl;
+    Distance d1 = {3, 5.0f};
+    Distance d2 = {2, 8.0f};
+    Distance summ = Summ(d1, d2);
+    Distance diff = Difference(d1, d2);
     
-    refa = b;
-    std::cout << "refa = " << refa << ", a = " << a << std::endl;
-    std::cout << "pointer to refa = " << &refa << ", pointer to a = " << &a << std::endl;
-    std::cout << "pointer to b = " << &b << std::endl << std::endl;
-    
-    Distance d1 = {2, 6.0f};
-    Distance& refd1 = d1;
-    refd1.feet += 5;
-    std::cout << "d1 = ";
-    Print(&d1);
-    std::cout << ", refd1 = ";
-    Print(&refd1);
+    Print(d1);
+    std::cout << " + ";
+    Print(d2);
+    std::cout << " = ";
+    Print(summ);
     std::cout << std::endl;
-    std::cout << "pointer to d1 = " << &d1 << ", pointer to refd1 = " << &refd1 << std::endl;
     
+    Print(d1);
+    std::cout << " - ";
+    Print(d2);
+    std::cout << " = ";
+    Print(diff);
+    std::cout << std::endl;
     return 0;
 }
