@@ -1,4 +1,6 @@
 add_executable (DynStructures
+  BinaryTree.cpp
+  BinaryTree.h
   Data.cpp
   Data.h
   List.cpp
