@@ -1,15 +1,21 @@
 #include "Data.h"
 //#include "List.h"
-#include "Stack.h"
+//#include "Stack.h"
+#include "Queue.h"
 
 #include <iostream>
 
-/* bool SalaryGreaterThan500(struct Data* data)
+bool SalaryGreaterThan500(const struct Data* data)
 {
-    return data->Salary > 500;
+    return data->Salary >= 500;
 }
 
-void TestListFunctional()
+bool SalaryLessThan500(const struct Data* data)
+{
+    return data->Salary < 500;
+}
+
+/* void TestListFunctional()
 {
     struct ListNode* first = NULL;
     int const count = 5;
@@ -34,7 +40,7 @@ void TestListFunctional()
     Destroy(first2);
 } */
 
-void TestStackFunctional()
+/* void TestStackFunctional()
 {
     struct Stack* stack = CreateStack(100);
     int const count = 5;
@@ -69,13 +75,54 @@ void TestStackFunctional()
         PrintData(data);
         free(data);
     }
+} */
+
+void HandleQueue(struct Queue* queue, DataCompareFunc predicate, int numHandler)
+{
+    std::cout << "Handler " << numHandler << std::endl;
+    int counter = GetCount(queue);
+    while (struct Data* data = Pop(queue))
+    {
+        if ((*predicate)(data))
+        {
+            PrintData(data);
+            free(data);
+            return;
+        }
+        Push(queue, data);
+        if (!--counter)
+        {
+            break;
+        }
+    }
+    std::cout << "Don't exist elements" << std::endl;
+}
+
+void TestQueueFunctional()
+{
+    int const count = 5;
+    struct Queue* queue = CreateQueue(5);
+    
+    for (int i = 0;i < count; ++i)
+    {
+        struct Data* data = ReadData();
+        Push(queue, data);
+    }
+    
+    while (!IsEmpty(queue))
+    {
+        HandleQueue(queue, SalaryGreaterThan500, 1);
+        HandleQueue(queue, SalaryLessThan500, 2);
+    }
 }
 
 int main()
 {
     // TestListFunctional();
     
-    TestStackFunctional();
+    // TestStackFunctional();
+    
+    TestQueueFunctional();
     
     return 0;
 }

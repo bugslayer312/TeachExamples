@@ -6,6 +6,8 @@ struct Data
     int Salary;
 };
 
+typedef bool (*DataCompareFunc)(const struct Data*);
+
 struct Data* CreateData(char const* name, int salary);
 struct Data* ReadData();
 void PrintData(struct Data* data);

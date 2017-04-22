@@ -8,8 +8,6 @@ struct ListNode
     struct ListNode* Next;
 };
 
-typedef bool (*DataCompareFunc)(struct Data*);
-
 struct ListNode* Create(struct Data* listData);
 void Destroy(struct ListNode* node);
 struct ListNode* GetLastNode(struct ListNode* first);
