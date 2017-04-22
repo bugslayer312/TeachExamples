@@ -4,4 +4,6 @@ add_executable (DynStructures
   List.cpp
   List.h
   main.cpp
+  Stack.cpp
+  Stack.h
 )
