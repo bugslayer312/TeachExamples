@@ -1,8 +1,8 @@
 #include "Data.h"
-//#include "List.h"
+#include "SingleLinkedList.h"
 //#include "Stack.h"
 //#include "Queue.h"
-#include "DoubleLinkedList.h"
+//#include "DoubleLinkedList.h"
 
 #include <iostream>
 
@@ -23,7 +23,7 @@ bool SalaryLessThan500(const struct Data* data)
     for (int i = 0;i < count; ++i)
     {
         struct Data* data = ReadData();
-        struct ListNode* node = Create(data);
+        struct ListNode* node = CreateSingleLinkedList(data);
         first = Insert(first, node);
     }
     PrintList(first);
@@ -117,7 +117,7 @@ void TestQueueFunctional()
     }
 } */
 
-void TestDoubleLinkedList()
+/* void TestDoubleLinkedList()
 {
     struct List2Node* first = NULL;
     int const count = 5;
@@ -142,17 +142,37 @@ void TestDoubleLinkedList()
     PrintList(first2);
     Destroy(first);
     Destroy(first2);
+} */
+
+void TestSingleLinkedListSort()
+{
+    struct ListNode* first = NULL;
+    int const count = 5;
+    for (int i = 0;i < count; ++i)
+    {
+        struct Data* data = ReadData();
+        struct ListNode* node = CreateSingleLinkedList(data);
+        first = PushBack(first, node);
+    }
+    BubbleSort(first);
+    PrintList(first);
+    first = Reverse(first);
+    std::cout << "\nReverse list:" << std::endl;
+    PrintList(first);
+    Destroy(first);
 }
 
 int main()
 {
     // TestListFunctional();
-    
+
     // TestStackFunctional();
-    
+
     // TestQueueFunctional();
-    
-    TestDoubleLinkedList();
-    
+
+    // TestDoubleLinkedList();
+
+    TestSingleLinkedListSort();
+
     return 0;
 }
