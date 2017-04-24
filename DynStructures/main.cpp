@@ -1,7 +1,8 @@
 #include "Data.h"
 //#include "List.h"
 //#include "Stack.h"
-#include "Queue.h"
+//#include "Queue.h"
+#include "DoubleLinkedList.h"
 
 #include <iostream>
 
@@ -77,7 +78,7 @@ bool SalaryLessThan500(const struct Data* data)
     }
 } */
 
-void HandleQueue(struct Queue* queue, DataCompareFunc predicate, int numHandler)
+/*void HandleQueue(struct Queue* queue, DataCompareFunc predicate, int numHandler)
 {
     std::cout << "Handler " << numHandler << std::endl;
     int counter = GetCount(queue);
@@ -114,6 +115,33 @@ void TestQueueFunctional()
         HandleQueue(queue, SalaryGreaterThan500, 1);
         HandleQueue(queue, SalaryLessThan500, 2);
     }
+} */
+
+void TestDoubleLinkedList()
+{
+    struct List2Node* first = NULL;
+    int const count = 5;
+    for (int i = 0;i < count; ++i)
+    {
+        struct Data* data = ReadData();
+        struct List2Node* node = CreateDoubleLinkedList(data);
+        first = PushBack(first, node);
+    }
+    ShakeSort(first);
+    first = GetFirstNode(first);
+    PrintList(first);
+    struct List2Node* first2 = NULL;
+    while (struct List2Node* found = Find(first, SalaryLessThan500))
+    {
+        first = Remove(first, found);
+        first2 = Insert(first2, found);
+    }
+    std::cout << "\nFirst list: " << GetCount(first) << " elements" << std::endl;
+    PrintList(first);
+    std::cout << "\nSecond list: " << GetCount(first2) << " elements" << std::endl;
+    PrintList(first2);
+    Destroy(first);
+    Destroy(first2);
 }
 
 int main()
@@ -122,7 +150,9 @@ int main()
     
     // TestStackFunctional();
     
-    TestQueueFunctional();
+    // TestQueueFunctional();
+    
+    TestDoubleLinkedList();
     
     return 0;
 }
