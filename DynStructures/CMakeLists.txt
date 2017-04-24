@@ -3,6 +3,8 @@ add_executable (DynStructures
   BinaryTree.h
   Data.cpp
   Data.h
+  DoubleLinkedList.cpp
+  DoubleLinkedList.h
   List.cpp
   List.h
   main.cpp
