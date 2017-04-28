@@ -3,3 +3,4 @@ project (Examples)
 
 add_subdirectory (DynStructures)
 add_subdirectory (Hello)
+add_subdirectory (oop)
