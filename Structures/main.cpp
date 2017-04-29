@@ -53,6 +53,65 @@ void PrintNameLessK(struct Data** array, int arrayCount)
     }
 }
 
+typedef bool (*ConditionMatchFunc)(const struct Data*);
+
+void PrintByCondition(struct Data** array, int arrayCount, ConditionMatchFunc predicate)
+{
+    for (int i = 0; i < arrayCount; ++i)
+    {
+        if ((*predicate)(array[i]))
+        {
+            PrintData(array[i]);
+        }
+    }
+}
+
+bool SalaryGreater500(const struct Data* data)
+{
+    return data->Salary > 500;
+}
+
+bool NameStartsWithLetterLessThanK(const struct Data* data)
+{
+    return toupper(data->Name[0]) < 'K';
+}
+
+typedef int (*CompareTwoDataFunc)(const struct Data*, const struct Data*);
+
+void CompareData(const struct Data* data1, const struct Data* data2, CompareTwoDataFunc compare)
+{
+    int compareResult = compare(data1, data2);
+    if (compareResult)
+    {
+        if (compareResult < 0)
+        {
+            printf("%s is less than %s\n", data1->Name, data2->Name);
+        }
+        else
+        {
+            printf("%s is greater than %s\n", data1->Name, data2->Name);
+        }
+    }
+    else
+    {
+        printf("%s equals to %s\n", data1->Name, data2->Name);
+    }
+}
+
+int CompareDataByName(const struct Data* data1, const struct Data* data2)
+{
+    return strcmp(data1->Name, data2->Name);
+}
+
+int CompareDataBySalary(const struct Data* data1, const struct Data* data2)
+{
+    if (data1->Salary == data2->Salary)
+    {
+        return 0;
+    }
+    return (data1->Salary < data2->Salary) ? -1 : 1;
+}
+
 int main()
 {
     int const count = 5;
@@ -61,19 +120,19 @@ int main()
     {
         array[i] = ReadData();
     }
-    BubbleSort(array, count);
-    for (int i = 0; i < count; ++i)
-    {
-        struct Data* data = array[i];
-        PrintData(data);
-        // free(data);
-    }
-    
+
     printf("Salary greater than 500:\n");
-    PrintSalaryGreater500(array, count);
+    PrintByCondition(array, count, SalaryGreater500);
     
     printf("Name starts with letter less than K:\n");
-    PrintNameLessK(array, count);
+    PrintByCondition(array, count, NameStartsWithLetterLessThanK);
+    
+    struct Data* data1 = ReadData();
+    struct Data* data2 = ReadData();
+    printf("Compare data by name:\n");
+    CompareData(data1, data2, CompareDataByName);
+    printf("Compare data by salary:\n");
+    CompareData(data1, data2, CompareDataBySalary);
     
     for (int i = 0; i < count; ++i)
     {
