@@ -1,4 +1,5 @@
 #include "Distance.h"
+#include "Student.h"
 
 #include <iostream>
 
@@ -34,7 +35,17 @@ public:
 };
 */
 
+void ExampleWithStudent()
+{
+    Student st1("Ivanov", 6.0f);
+    Student st2 = st1;
+    st2.SetName("Petrov");
+    st1.Print();
+    st2.Print();
+}
+
 int main()
 {
+    ExampleWithStudent();
     return 0;
 }
