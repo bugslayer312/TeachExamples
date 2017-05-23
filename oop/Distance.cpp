@@ -2,6 +2,48 @@
 
 #include <iostream>
 
+// without using initialization list
+/*
+Distance::Distance()
+{
+    m_feet = 0;
+    m_inches = 0;
+}
+
+Distance::Distance(int feet)
+{
+    m_feet = feet;
+    m_inches = 0;
+}
+
+Distance::Distance(int feet, float inches)
+{
+    m_feet = feet;
+    m_inches = inches;
+}
+*/
+
+// using initialization list
+
+Distance::Distance() :
+    m_feet(0),
+    m_inches(0)
+{
+}
+
+Distance::Distance(int feet, float inches) :
+    m_feet(feet),
+    m_inches(inches)
+{
+}
+
+// delegating constructors: calling constructor from constructor
+
+Distance::Distance(int feet) :
+    Distance(feet, 0)
+{
+}
+
 int Distance::GetFeet()
 {
     return m_feet;
