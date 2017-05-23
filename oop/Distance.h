@@ -7,6 +7,10 @@ private:
     float m_inches;
     
 public:
+    Distance();
+    Distance(int feet);
+    Distance(int feet, float inches);
+    
     int GetFeet();
     float GetInches();
     void SetData(int feet, float inches);

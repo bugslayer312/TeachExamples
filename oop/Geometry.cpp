@@ -4,6 +4,33 @@
 
 // Point
 
+// without using initialization list
+/*
+Point::Point()
+{
+    m_x = m_y = 0;
+}
+
+Point::Point(int x, int y)
+{
+    m_x = x;
+    m_y = y;
+}
+*/
+
+// using initialization list
+Point::Point() :
+    m_x(0),
+    m_y(0)
+{
+}
+
+Point::Point(int x, int y) :
+    m_x(x),
+    m_y(y)
+{
+}
+
 int Point::GetX()
 {
     return m_x;
@@ -38,6 +65,34 @@ void Point::Move(int x, int y)
 }
 
 // Size
+
+// without using initialization list
+/*
+Size::Size()
+{
+    m_width = m_heigh = 0;
+}
+
+Size::Size(int width, int height)
+{
+    m_width = width;
+    m_heigh = height;
+}
+*/
+
+// using initialization list
+Size::Size() :
+    m_width(0),
+    m_heigh(0)
+{
+}
+
+Size::Size(int width, int height) :
+    m_width(width),
+    m_heigh(height)
+{
+}
+
 int Size::GetWidth()
 {
     return m_width;
@@ -77,6 +132,54 @@ bool Size::IsEmpty()
 }
 
 // Rectangle
+
+// without using initialization list
+/*
+Rectangle::Rectangle()
+{
+    m_origin.Init(0, 0);
+    m_size.Init(0, 0);
+}
+
+Rectangle::Rectangle(int x, int y, int width, int height)
+{
+    m_origin.Init(x, y);
+    m_size.Init(width, height);
+}
+
+Rectangle::Rectangle(Point const& origin, Size const& size)
+{
+    m_origin = origin;
+    m_size = size;
+}
+*/
+
+// using initialization list
+
+Rectangle::Rectangle() :
+    m_origin(),
+    m_size()
+{
+}
+
+Rectangle::Rectangle(int x, int y, int width, int height) :
+    m_origin(x, y),
+    m_size(width, height)
+{
+}
+
+Rectangle::Rectangle(Point const& origin, Size const& size) :
+    m_origin(origin),
+    m_size(size)
+{
+}
+
+// delegating constructors: calling constructor from constructor
+
+Rectangle::Rectangle(int width, int height) :
+    Rectangle(0, 0, width, height)
+{
+}
 
 Point Rectangle::GetOrigin()
 {

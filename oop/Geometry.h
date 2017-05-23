@@ -7,6 +7,8 @@ private:
     int m_y;
     
 public:
+    Point();                // default constructor
+    Point(int x, int y);    // constructor with parameters
     int GetX();
     int GetY();
     void Init(int x, int y);
@@ -22,6 +24,8 @@ private:
     int m_heigh;
     
 public:
+    Size();                         // default constructor
+    Size(int width, int height);    // constructor with parameters
     int GetWidth();
     int GetHeight();
     void Init(int width, int height);
@@ -43,6 +47,11 @@ private:
     int GetBottom();
     
 public:
+    Rectangle();                                        // default constructor
+    Rectangle(int x, int y, int width, int height);     // constructor with parameters
+    Rectangle(Point const& origin, Size const& size);   // constructor with parameters
+    Rectangle(int width, int height);                   // constructor with parameters
+
     Point GetOrigin();
     Size GetSize();
     void Init(int x, int y, int width, int height);
