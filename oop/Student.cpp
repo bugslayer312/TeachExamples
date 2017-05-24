@@ -16,12 +16,23 @@ Student::Student(char const* name, int rating) :
     SetName(name);
 }
 
-char const* Student::GetName()
+Student::Student(Student const& student) :
+    m_rating(student.m_rating)
+{
+    SetName(student.GetName());
+}
+
+Student::~Student()
+{
+    delete[] m_name;
+}
+
+char const* Student::GetName() const
 {
     return m_name;
 }
 
-int Student::GetRating()
+int Student::GetRating() const
 {
     return m_rating;
 }
@@ -49,7 +60,18 @@ void Student::Read()
     std::cin >> m_rating;
 }
 
-void Student::Print()
+void Student::Print() const
 {
     std::cout << m_name << ": " << m_rating << "\n";
+}
+
+Student& Student::operator=(Student& student)
+{
+    if (this == &student)
+    {
+        return *this;
+    }
+    m_rating = student.m_rating;
+    SetName(student.GetName());
+    return *this;
 }

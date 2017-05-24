@@ -31,12 +31,12 @@ Point::Point(int x, int y) :
 {
 }
 
-int Point::GetX()
+int Point::GetX() const
 {
     return m_x;
 }
 
-int Point::GetY()
+int Point::GetY() const
 {
     return m_y;
 }
@@ -53,7 +53,7 @@ void Point::Read()
     std::cin >> m_x >> m_y;
 }
 
-void Point::Print()
+void Point::Print() const
 {
     std::cout << m_x << ", " << m_y << "\n";
 }
@@ -93,12 +93,12 @@ Size::Size(int width, int height) :
 {
 }
 
-int Size::GetWidth()
+int Size::GetWidth() const
 {
     return m_width;
 }
 
-int Size::GetHeight()
+int Size::GetHeight() const
 {
     return m_heigh;
 }
@@ -115,7 +115,7 @@ void Size::Read()
     std::cin >> m_width >> m_heigh;
 }
 
-void Size::Print()
+void Size::Print() const
 {
     std::cout << m_width << ", " << m_heigh << "\n";
 }
@@ -126,7 +126,7 @@ void Size::Scale(float xscale, float yscale)
     m_heigh *= yscale;
 }
 
-bool Size::IsEmpty()
+bool Size::IsEmpty() const
 {
     return m_width == 0 || m_heigh == 0;
 }
@@ -181,32 +181,32 @@ Rectangle::Rectangle(int width, int height) :
 {
 }
 
-Point Rectangle::GetOrigin()
+Point const& Rectangle::GetOrigin() const
 {
     return m_origin;
 }
 
-Size Rectangle::GetSize()
+Size const& Rectangle::GetSize() const
 {
     return m_size;
 }
 
-int Rectangle::GetLeft()
+int Rectangle::GetLeft() const
 {
     return m_origin.GetX();
 }
 
-int Rectangle::GetRight()
+int Rectangle::GetRight() const
 {
     return m_origin.GetX() + m_size.GetWidth();
 }
 
-int Rectangle::GetTop()
+int Rectangle::GetTop() const
 {
     return m_origin.GetY() + m_size.GetHeight();
 }
 
-int Rectangle::GetBottom()
+int Rectangle::GetBottom() const
 {
     return m_origin.GetY();
 }
@@ -228,17 +228,17 @@ void Rectangle::Move(int x, int y)
     m_origin.Move(x, y);
 }
 
-bool Rectangle::IsEmpty()
+bool Rectangle::IsEmpty() const
 {
     return m_size.IsEmpty();
 }
 
-bool Rectangle::Contains(Point& p)
+bool Rectangle::Contains(Point& p) const
 {
     return GetLeft() <= p.GetX() && p.GetX() <= GetRight() && GetBottom() <= p.GetY() && p.GetY() <= GetTop();
 }
 
-Rectangle Rectangle::IntersectWith(Rectangle& r)
+Rectangle Rectangle::IntersectWith(Rectangle const& r) const
 {
     Rectangle result;
     result.Init(0, 0, 0, 0);
@@ -275,7 +275,7 @@ void Rectangle::Read()
     m_size.Read();
 }
 
-void Rectangle::Print()
+void Rectangle::Print() const
 {
     std::cout << "x: " << m_origin.GetX() << "y: " << m_origin.GetY() <<
         "width: " << m_size.GetWidth() << "height: " << m_size.GetHeight() << std::endl;
