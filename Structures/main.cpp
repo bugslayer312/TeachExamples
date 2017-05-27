@@ -5,6 +5,9 @@
 #include <cstdio>
 #include <ctype.h>
 
+typedef bool (*ConditionMatchFunc)(const struct Data*);
+typedef int (*CompareTwoDataFunc)(const struct Data*, const struct Data*);
+
 void swap(struct Data** data1, struct Data** data2)
 {
     struct Data* tmp = *data1;
@@ -12,22 +15,22 @@ void swap(struct Data** data1, struct Data** data2)
     *data2 = tmp;
 }
 
-void BubbleSortIteration(struct Data** data, int count)
+void BubbleSortIteration(struct Data** data, int count, CompareTwoDataFunc compare)
 {
     for (int i = 1; i < count; ++i)
     {
-        if (strcmp(data[i-1]->Name, data[i]->Name) > 0)
+        if (compare(data[i-1], data[i]) > 0)
         {
             swap(&data[i-1], &data[i]);
         }
     }
 }
 
-void BubbleSort(struct Data** data, int count)
+void BubbleSort(struct Data** data, int count, CompareTwoDataFunc compare)
 {
     for (int subCount = count; subCount > 1; --subCount)
     {
-        BubbleSortIteration(data, subCount);
+        BubbleSortIteration(data, subCount, compare);
     }
 }
 
@@ -53,8 +56,6 @@ void PrintNameLessK(struct Data** array, int arrayCount)
     }
 }
 
-typedef bool (*ConditionMatchFunc)(const struct Data*);
-
 void PrintByCondition(struct Data** array, int arrayCount, ConditionMatchFunc predicate)
 {
     for (int i = 0; i < arrayCount; ++i)
@@ -75,8 +76,6 @@ bool NameStartsWithLetterLessThanK(const struct Data* data)
 {
     return toupper(data->Name[0]) < 'K';
 }
-
-typedef int (*CompareTwoDataFunc)(const struct Data*, const struct Data*);
 
 void CompareData(const struct Data* data1, const struct Data* data2, CompareTwoDataFunc compare)
 {
@@ -112,6 +111,14 @@ int CompareDataBySalary(const struct Data* data1, const struct Data* data2)
     return (data1->Salary < data2->Salary) ? -1 : 1;
 }
 
+void PrintArray(struct Data** data, int count)
+{
+    for (int i = 0; i < count; ++i)
+    {
+        PrintData(data[i]);
+    }
+}
+
 int main()
 {
     int const count = 5;
@@ -133,6 +140,14 @@ int main()
     CompareData(data1, data2, CompareDataByName);
     printf("Compare data by salary:\n");
     CompareData(data1, data2, CompareDataBySalary);
+    
+    // sort data by name
+    BubbleSort(array, count, CompareDataByName);
+    PrintArray(array, count);
+    
+    // sort data by salary
+    BubbleSort(array, count, CompareDataBySalary);
+    PrintArray(array, count);
     
     for (int i = 0; i < count; ++i)
     {
