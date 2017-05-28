@@ -6,6 +6,11 @@ private:
     char* m_name = 0;
     int m_rating;
     
+    static int g_count;
+
+    static void IncreaseCount();
+    static void DecreaseCount();
+    
 public:
     Student();
     Student(char const* name, int rating);
@@ -22,4 +27,6 @@ public:
     void Print() const;
     
     Student& operator=(Student& student);
+    
+    static int GetStudentCount();
 };
