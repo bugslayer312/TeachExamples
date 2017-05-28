@@ -1,5 +1,9 @@
 #pragma once
 
+#include <iosfwd>
+
+class SquareInches;
+
 class Distance
 {
 private:
@@ -18,8 +22,8 @@ public:
     void SetData(int feet, float inches);
     void Read();
     void Print() const;
-    void Add(Distance const& d);
-    void Deduct(Distance const& d);
+    //void Add(Distance const& d);
+    //void Deduct(Distance const& d);
     
     void operator+=(Distance const& rhs);
     void operator-=(Distance const& rhs);
@@ -34,7 +38,30 @@ public:
     
     Distance& operator++();
     Distance operator++(int);
+    
+    friend float operator/(Distance const& lhs, Distance const& rhs);
+    friend SquareInches operator*(Distance const& lhs, Distance const& rhs);
+    friend std::ostream& operator<<(std::ostream& stream, Distance const& d);
+    friend std::istream& operator>>(std::istream& stream, Distance& d);
 };
 
-//Distance Summ(Distance const& d1, Distance const& d2);
-//Distance Diff(Distance const& d1, Distance const& d2);
+class SquareInches
+{
+private:
+    float m_value;
+    
+public:
+    SquareInches(float value): m_value(value)
+    {
+    }
+    
+    inline float GetValue() const
+    {
+        return m_value;
+    }
+};
+
+float operator/(Distance const& lhs, Distance const& rhs);
+SquareInches operator*(Distance const& lhs, Distance const& rhs);
+std::ostream& operator<<(std::ostream& stream, Distance const& d);
+std::istream& operator>>(std::istream& stream, Distance& d);

@@ -44,8 +44,21 @@ void ExampleWithStudent()
     st2.Print();
 }
 
+void ExampleWithDistance()
+{
+    std::cout << "Enter first distance: ";
+    Distance d1;
+    std::cin >> d1;
+    std::cout << "Enter second distance: ";
+    Distance d2;
+    std::cin >> d2;
+    Distance d3 = d1 + d2;
+    std::cout << "Summ: " << d3 << "\n";
+}
+
 int main()
 {
-    ExampleWithStudent();
+    // ExampleWithStudent();
+    ExampleWithDistance();
     return 0;
 }

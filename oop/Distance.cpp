@@ -1,6 +1,7 @@
 #include "Distance.h"
 
 #include <iostream>
+#include <cstdlib>
 
 // without using initialization list
 /*
@@ -179,4 +180,42 @@ Distance Distance::operator++(int)
     Distance copy(*this);
     ++m_feet;
     return copy;
+}
+
+float operator/(Distance const& lhs, Distance const& rhs)
+{
+    return lhs.ToInches()/rhs.ToInches();
+}
+
+SquareInches operator*(Distance const& lhs, Distance const& rhs)
+{
+    return lhs.ToInches()*rhs.ToInches();
+}
+
+std::ostream& operator<<(std::ostream& stream, Distance const& d)
+{
+    stream << d.m_feet << "\'" << d.m_inches << "\"";
+    return stream;
+}
+
+std::istream& operator>>(std::istream& stream, Distance& d)
+{
+    char buffer[20];
+    stream.getline(buffer, 19);
+    char* begin = buffer;
+    int feet = strtol(begin, &begin, 10);
+    if (*begin != '\'')
+    {
+        std::cout << "Wrong format\n";
+        exit(-1);
+    }
+    float inches = strtof(++begin, &begin);
+    if (*begin != '\"')
+    {
+        std::cout << "Wrong format\n";
+        exit(-1);
+    }
+    d.m_feet = feet;
+    d.m_inches = inches;
+    return stream;
 }
