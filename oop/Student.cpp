@@ -3,9 +3,28 @@
 #include <cstring>
 #include <iostream>
 
+// static field initialization
+int Student::g_count = 0;
+
+void Student::IncreaseCount()
+{
+    ++g_count;
+}
+
+void Student::DecreaseCount()
+{
+    --g_count;
+}
+
+int Student::GetStudentCount()
+{
+    return g_count;
+}
+
 Student::Student() :
     m_rating(0)
 {
+    IncreaseCount();
     m_name = new char[1];
     m_name[0] = '\0';
 }
@@ -13,17 +32,20 @@ Student::Student() :
 Student::Student(char const* name, int rating) :
     m_rating(rating)
 {
+    IncreaseCount();
     SetName(name);
 }
 
 Student::Student(Student const& student) :
     m_rating(student.m_rating)
 {
+    IncreaseCount();
     SetName(student.GetName());
 }
 
 Student::~Student()
 {
+    DecreaseCount();
     delete[] m_name;
 }
 

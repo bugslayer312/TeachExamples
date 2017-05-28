@@ -37,11 +37,17 @@ public:
 
 void ExampleWithStudent()
 {
+    std::cout << "Students count: " << Student::GetStudentCount() << "\n";
     Student st1("Ivanov", 6.0f);
     Student st2 = st1;
     st2.SetName("Petrov");
     st1.Print();
     st2.Print();
+    {
+        std::cout << "Students count: " << Student::GetStudentCount() << "\n";
+        Student st3 = st1;
+    }
+    std::cout << "Students count: " << Student::GetStudentCount() << "\n";
 }
 
 void ExampleWithDistance()
