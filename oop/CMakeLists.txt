@@ -4,6 +4,8 @@ add_executable (oop
   Geometry.cpp
   Geometry.h
   main.cpp
+  String.cpp
+  String.h
   Student.cpp
   Student.h
 )
