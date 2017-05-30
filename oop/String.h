@@ -26,7 +26,7 @@ public:
     char& operator[](int idx);
     char operator[](int idx) const;
     
-    operator char const*() const;
+    operator char*();
     operator bool() const;
     
     friend std::istream& operator>>(std::istream& stream, String& string);
