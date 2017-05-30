@@ -1,9 +1,11 @@
 #pragma once
 
+#include "String.h"
+
 class Student
 {
 private:
-    char* m_name = 0;
+    String m_name ;
     int m_rating;
     
     static int g_count;
@@ -13,20 +15,20 @@ private:
     
 public:
     Student();
-    Student(char const* name, int rating);
+    Student(String const& name, int rating);
     Student(Student const& student);
     ~Student();
     
-    char const* GetName() const;
+    String const& GetName() const;
     int GetRating() const;
     
-    void SetName(char const* name);
+    void SetName(String const& name);
     void SetRating(int rating);
     
     void Read();
     void Print() const;
     
-    Student& operator=(Student& student);
+    Student& operator=(Student const& student);
     
     static int GetStudentCount();
 };

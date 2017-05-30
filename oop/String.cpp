@@ -52,9 +52,8 @@ String String::operator+(String const& rhs)
     String result;
     delete[] result.m_str;
     result.m_str = new char[length1 + length2 + 1];
-    result.m_str[0] = '\0';
-    strcat(result.m_str, m_str);
-    strcat(result.m_str, rhs.m_str);
+    memcpy(result.m_str, m_str, length1);
+    memcpy(result.m_str + length1, rhs.m_str, length2 + 1);
     return result;
 }
 
@@ -98,7 +97,7 @@ char String::operator[](int idx) const
     return m_str[idx];
 }
 
-String::operator char const*() const
+String::operator char*()
 {
     return m_str;
 }
