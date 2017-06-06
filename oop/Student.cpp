@@ -3,47 +3,32 @@
 #include <cstring>
 #include <iostream>
 
-// static field initialization
-int Student::g_count = 0;
-
-void Student::IncreaseCount()
-{
-    ++g_count;
-}
-
-void Student::DecreaseCount()
-{
-    --g_count;
-}
-
-int Student::GetStudentCount()
-{
-    return g_count;
-}
 
 Student::Student() :
     m_rating(0)
 {
-    IncreaseCount();
 }
 
 Student::Student(String const& name, int rating) :
     m_name(name),
     m_rating(rating)
 {
-    IncreaseCount();
 }
 
 Student::Student(Student const& student) :
     m_name(student.m_name),
     m_rating(student.m_rating)
 {
-    IncreaseCount();
+}
+
+Student::Student(Student&& student):
+    m_name(std::move(student.m_name)),
+    m_rating(student.m_rating)
+{
 }
 
 Student::~Student()
 {
-    DecreaseCount();
 }
 
 String const& Student::GetName() const
@@ -83,11 +68,20 @@ void Student::Print() const
 
 Student& Student::operator=(Student const& student)
 {
-    if (this == &student)
+    if (this != &student)
     {
-        return *this;
+        m_rating = student.m_rating;
+        m_name = student.m_name;
     }
-    m_rating = student.m_rating;
-    m_name = student.m_name;
+    return *this;
+}
+
+Student& Student::operator=(Student&& student)
+{
+    if (this != &student)
+    {
+        m_name = std::move(student.m_name);
+        m_rating = student.m_rating;
+    }
     return *this;
 }

@@ -3,41 +3,60 @@
 #include <cstring>
 #include <iostream>
 
-String::String()
-{
-    m_str = new char[1];
-    m_str[0] = '\0';
-}
 
 String::String(char const* str)
 {
-    size_t length = strlen(str);
-    m_str = new char[length + 1];
-    strcpy(m_str, str);
+    if (str)
+    {
+        m_str = new char[strlen(str) + 1];
+        strcpy(m_str, str);
+    }
 }
 
 String::String(String const& string)
 {
-    String tmp(string.m_str);
-    m_str = tmp.m_str;
-    tmp.m_str = nullptr;
+    m_str = new char[string.GetLength() + 1];
+    strcpy(m_str, string.m_str ? string.m_str : "");
+}
+
+String::String(String&& rhs)
+{
+    m_str = rhs.m_str;
+    rhs.m_str = nullptr;
 }
 
 String& String::operator=(String const& rhs)
 {
     if (this != &rhs)
     {
-        String tmp(rhs.m_str);
         delete[] m_str;
-        m_str = tmp.m_str;
-        tmp.m_str = nullptr;
+        if (rhs.m_str != nullptr)
+        {
+            m_str = new char[rhs.GetLength() + 1];
+            strcpy(m_str, rhs.m_str);
+        }
+        else
+        {
+            m_str = nullptr;
+        }
+    }
+    return *this;
+}
+
+String& String::operator=(String&& rhs)
+{
+    if (this != &rhs)
+    {
+        delete[] m_str;
+        m_str = rhs.m_str;
+        rhs.m_str = nullptr;
     }
     return *this;
 }
 
 size_t String::GetLength() const
 {
-    return strlen(m_str);
+    return m_str != nullptr ? strlen(m_str) : 0;
 }
 
 char const* String::GetCString() const
@@ -49,32 +68,39 @@ String String::operator+(String const& rhs)
 {
     size_t length1 = GetLength();
     size_t length2 = rhs.GetLength();
+    size_t newLength = length1 + length2;
     String result;
-    delete[] result.m_str;
-    result.m_str = new char[length1 + length2 + 1];
-    memcpy(result.m_str, m_str, length1);
-    memcpy(result.m_str + length1, rhs.m_str, length2 + 1);
+    result.m_str = new char[newLength + 1];
+    if (length1)
+    {
+        memcpy(result.m_str, m_str, length1);
+    }
+    if (length2)
+    {
+        memcpy(result.m_str + length1, rhs.m_str, length2);
+    }
+    result.m_str[newLength] = '\0';
     return result;
 }
 
 bool String::operator==(String const& rhs) const
 {
-    return strcmp(m_str, rhs.m_str) == 0;
+    return strcmp(m_str ? m_str : "", rhs.m_str ? rhs.m_str : "") == 0;
 }
 
 bool String::operator!=(String const& rhs) const
 {
-    return strcmp(m_str, rhs.m_str) != 0;
+    return !(*this == rhs);
 }
 
 bool String::operator<(String const& rhs) const
 {
-    return strcmp(m_str, rhs.m_str) < 0;
+    return strcmp(m_str ? m_str : "", rhs.m_str ? rhs.m_str : "") < 0;
 }
 
 bool String::operator>(String const& rhs) const
 {
-    return strcmp(m_str, rhs.m_str) > 0;
+    return strcmp(m_str ? m_str : "", rhs.m_str ? rhs.m_str : "") > 0;
 }
 
 char& String::operator[](int idx)
@@ -89,12 +115,8 @@ char& String::operator[](int idx)
 
 char String::operator[](int idx) const
 {
-    if (idx < 0 || idx >= GetLength())
-    {
-        std::cout << "String: invalid index\n";
-        exit(-1);
-    }
-    return m_str[idx];
+    String* this_ = const_cast<String*>(this);
+    return (*this)[idx];
 }
 
 String::operator char*()
@@ -109,7 +131,7 @@ String::operator bool() const
 
 std::ostream& operator<<(std::ostream& stream, String const& string)
 {
-    stream << string.GetCString();
+    stream << string.GetCString() ? string.GetCString() : "";
     return stream;
 }
 
