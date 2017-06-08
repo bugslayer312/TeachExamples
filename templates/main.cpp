@@ -1,3 +1,5 @@
+#include "Array.h"
+
 #include <iostream>
 #include <cstring>
 
@@ -38,7 +40,7 @@ template <typename T>
 typename AccumulationTraits<T>::AccT Average(T const* beg, T const* end)
 {
     typedef typename AccumulationTraits<T>::AccT AccT;
-    
+
     AccT total = AccumulationTraits<T>::zero;
     while (beg != end)
     {

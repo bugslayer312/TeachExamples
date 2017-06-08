@@ -18,6 +18,12 @@ do
     rm -f CMakeCache.txt
     cmake $CUR -G Xcode
     ;;
+    -vs)
+    cd $CUR/build-vs
+    rm -rf CMakeFiles
+    rm -f CMakeCache.txt
+    cmake $CUR -G "Visual Studio 12 2013 Win64"
+    ;;
     -build)
     cd $CUR/build
     make
