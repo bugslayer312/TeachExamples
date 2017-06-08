@@ -6,6 +6,8 @@
 #include <vector>
 #include <list>
 
+#include <algorithm>
+
 template<class T>
 T const& max(T const& a, T const& b)
 {
@@ -79,12 +81,10 @@ int main()
     List<int>::iterator it = list.begin();
     list.insert(it, 400);
     list.insert(it, 500);
-    List<int>::iterator it1 = list.begin();
-    ++it1;
-    while (it1 != list.end())
-    {
-        it1 = list.erase(it1);
-    }
+    it = list.begin();
+    ++it;
+    ++it;
+    List<int>::iterator found = std::find(list.begin(), it, 250);
     for (int& var : list)
     {
         std::cout << var << " ";

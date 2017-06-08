@@ -1,5 +1,7 @@
 #pragma once
 
+#include <xutility>
+
 template<class T>
 class List;
 
@@ -14,12 +16,20 @@ struct ListNode
     };
 };
 
+
 template<class T>
 class Iterator
 {
     typedef ListNode<T> Node;
     Node* m_node;
 public:
+    typedef T value_type;
+    typedef ptrdiff_t difference_type;
+    typedef const T& reference;
+    typedef const T* pointer;
+    typedef size_t size_type;
+    typedef std::forward_iterator_tag iterator_category;
+
     Iterator(Node* node) : m_node(node){};
 
     Iterator& operator++()
