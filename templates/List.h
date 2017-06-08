@@ -1,7 +1,5 @@
 #pragma once
 
-#include <xutility>
-
 template<class T>
 class List;
 
@@ -56,14 +54,13 @@ public:
         return !(*this == rhs);
     }
 
-    template<class T> friend class List;
+    friend class List<T>;
 };
 
 template<class T>
 class List
 {
     typedef ListNode<T> Node;
-    template<class T> friend class Iterator;
 
     Node* m_head = nullptr;
 

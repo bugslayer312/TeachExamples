@@ -6,7 +6,7 @@
 template<class T, size_t N>
 class Array
 {
-    T m_data;
+    T m_data[N];
 
 public:
     Array();
@@ -15,6 +15,7 @@ public:
     Array(Array<T, N1> const& rhs);
 
     T& operator[](size_t i);
+    T const& operator[](size_t i) const;
 
     template<size_t N1>
     Array<T, N>& operator=(Array<T, N1> const& rhs);
@@ -25,9 +26,9 @@ public:
 template<class T, size_t N>
 Array<T, N>::Array()
 {
-    for (size_t i = 0; i < N)
+    for (size_t i = 0; i < N; ++i)
     {
-        m_data = T();
+        m_data[i] = T();
     }
 }
 
@@ -53,6 +54,13 @@ T& Array<T, N>::operator[](size_t i)
 }
 
 template<class T, size_t N>
+T const& Array<T, N>::operator[](size_t i) const
+{
+    Array<T, N>* thisWithoutConst = const_cast<Array<T, N>*>(this);
+    return *thisWithoutConst[i];
+}
+
+template<class T, size_t N>
 template<size_t N1>
 Array<T, N>& Array<T, N>::operator=(Array<T, N1> const& rhs)
 {
@@ -60,7 +68,7 @@ Array<T, N>& Array<T, N>::operator=(Array<T, N1> const& rhs)
     {
         for (size_t i = 0; i < N; ++i)
         {
-             m_data[i] = (i < N1 ? rhs[i] : T1());
+             m_data[i] = (i < N1 ? rhs[i] : T());
         }
     }
     return *this;

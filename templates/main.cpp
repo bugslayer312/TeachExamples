@@ -67,7 +67,7 @@ public:
     }
 };
 
-// std::copy_if(a, a+10, GreaterEqual<int>(4))
+//std::copy_if(a, a+10, GreaterEqual<int>(4))
 
 int main()
 {
@@ -81,10 +81,9 @@ int main()
     List<int>::iterator it = list.begin();
     list.insert(it, 400);
     list.insert(it, 500);
-    it = list.begin();
-    ++it;
-    ++it;
-    List<int>::iterator found = std::find(list.begin(), it, 250);
+    
+    std::cout << std::count_if(list.begin(), list.end(), GreaterEqual<int>(300)) << "\n";
+    
     for (int& var : list)
     {
         std::cout << var << " ";
