@@ -1,7 +1,10 @@
 #include "Array.h"
+#include "List.h"
 
 #include <iostream>
 #include <cstring>
+#include <vector>
+#include <list>
 
 template<class T>
 T const& max(T const& a, T const& b)
@@ -66,9 +69,25 @@ public:
 
 int main()
 {
+    // vector::iterator
     int a = 1;
     int b = 2;
     std::cout << max(a, b) << "\n";
     std::cout << max("Hello", "World") << "\n";
+
+    List<int> list = { 100, 200, 300 };
+    List<int>::iterator it = list.begin();
+    list.insert(it, 400);
+    list.insert(it, 500);
+    List<int>::iterator it1 = list.begin();
+    ++it1;
+    while (it1 != list.end())
+    {
+        it1 = list.erase(it1);
+    }
+    for (int& var : list)
+    {
+        std::cout << var << " ";
+    }
     return 0;
 }
