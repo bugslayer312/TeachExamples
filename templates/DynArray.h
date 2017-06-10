@@ -70,17 +70,8 @@ DynArray<T>& DynArray<T>::operator=(DynArray<T> const& rhs)
 {
     if (&rhs != this)
     {
-        delete [] m_data;
-        m_capacity = rhs.m_capacity;
-        m_size = rhs.m_size;
-        if (m_capacity > 0)
-        {
-            m_data = new T[m_capacity];
-            for (size_t i = 0; i < m_size; ++i)
-            {
-                m_data[i] = rhs.m_data[i];
-            }
-        }
+        DynArray<T> temp(rhs);      // copy to temp
+        *this = std::move(temp);    // grabbing data from temp
     }
     return *this;
 }
