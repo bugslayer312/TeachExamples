@@ -1,7 +1,12 @@
 #include "Array.h"
+#include "List.h"
 
 #include <iostream>
 #include <cstring>
+#include <vector>
+#include <list>
+
+#include <algorithm>
 
 template<class T>
 T const& max(T const& a, T const& b)
@@ -62,13 +67,26 @@ public:
     }
 };
 
-// std::copy_if(a, a+10, GreaterEqual<int>(4))
+//std::copy_if(a, a+10, GreaterEqual<int>(4))
 
 int main()
 {
+    // vector::iterator
     int a = 1;
     int b = 2;
     std::cout << max(a, b) << "\n";
     std::cout << max("Hello", "World") << "\n";
+
+    List<int> list = { 100, 200, 300 };
+    List<int>::iterator it = list.begin();
+    list.insert(it, 400);
+    list.insert(it, 500);
+    
+    std::cout << std::count_if(list.begin(), list.end(), GreaterEqual<int>(300)) << "\n";
+    
+    for (int& var : list)
+    {
+        std::cout << var << " ";
+    }
     return 0;
 }
