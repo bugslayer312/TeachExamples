@@ -1,92 +1,44 @@
-#include "Array.h"
-#include "List.h"
+//#include "Array.h"
+//#include "List.h"
+#include "SomeStuff.h"
+//#include "DynArray.h"
+//#include "Student.h"
 
 #include <iostream>
-#include <cstring>
-#include <vector>
-#include <list>
+//#include <algorithm>
 
-#include <algorithm>
-
-template<class T>
-T const& max(T const& a, T const& b)
+class Student
 {
-    return a > b ? a : b;
-}
-
-template<class T>
-T const& max(T const& a, T const& b, T const& c)
-{
-    return max(max(a, b), c);
-}
-
-char const* max(char const* a, char const* b)
-{
-    return strcmp(a, b) < 0 ? b : a;
-}
-
-/*template<>
-char const* max(char const* a, char const* b)
-{
-    return strcmp(a, b) < 0 ? b : a;
-} */
-
-template<typename T>
-class AccumulationTraits;
-
-template<>
-class AccumulationTraits<char> {
+    float m_rating = 0;
 public:
-    typedef int AccT;
-    static AccT const zero = 0;
-};
-
-template <typename T>
-typename AccumulationTraits<T>::AccT Average(T const* beg, T const* end)
-{
-    typedef typename AccumulationTraits<T>::AccT AccT;
-
-    AccT total = AccumulationTraits<T>::zero;
-    while (beg != end)
+    Student(float rating) : m_rating(rating) {};
+    bool operator>(Student const& rhs) const
     {
-        total += *beg;
-        ++beg;
+        return m_rating > rhs.m_rating;
     }
-    return total;
-}
-
-template <class T>
-class GreaterEqual
-{
-    T value;
-public:
-    GreaterEqual(T const& v) : value(v) {};
-    bool operator()(const T& d)
+    float GetRating() const
     {
-        return d >= value;
+        return m_rating;
     }
 };
 
-//std::copy_if(a, a+10, GreaterEqual<int>(4))
+template<class T>
+class IsGreaterRating
+{
+public:
+    bool operator()(const T& a, const T& b) const
+    {
+        return a.GetRating() > b.GetRating();
+    }
+};
 
 int main()
 {
-    // vector::iterator
-    int a = 1;
-    int b = 2;
-    std::cout << max(a, b) << "\n";
-    std::cout << max("Hello", "World") << "\n";
-
-    List<int> list = { 100, 200, 300 };
-    List<int>::iterator it = list.begin();
-    list.insert(it, 400);
-    list.insert(it, 500);
+    //DynArray<int> d = {100, 200, 300};
+    //std::cout << d << ;//std::endl;
+    Student students[] = {5.0f, 7.3f, 2.03 };
+    BubbleSort(students, 3, IsGreaterRating<Student>());
     
-    std::cout << std::count_if(list.begin(), list.end(), GreaterEqual<int>(300)) << "\n";
     
-    for (int& var : list)
-    {
-        std::cout << var << " ";
-    }
     return 0;
 }

@@ -14,6 +14,7 @@ public:
     DynArray(size_t capacity);
     DynArray(DynArray const& rhs);
     DynArray(DynArray&& rhs);
+    DynArray(std::initializer_list<T> const& list);
     DynArray& operator=(DynArray const& rhs);
     DynArray& operator=(DynArray&& rhs);
     
@@ -28,6 +29,16 @@ public:
     T& operator[](size_t idx);
     T const& operator[](size_t idx) const;
 };
+
+template<class T>
+std::ostream& operator<<(std::ostream& stream, DynArray<T> const& array)
+{
+    for (size_t i = 0; i < array.size(); ++i)
+    {
+        stream << array[i] << " ";
+    }
+    return stream;
+}
 
 template<class T>
 DynArray<T>::DynArray(size_t capacity):
@@ -63,6 +74,23 @@ DynArray<T>::DynArray(DynArray&& rhs):
     rhs.m_capacity = 0;
     rhs.m_size = 0;
     rhs.m_data = nullptr;
+}
+
+template<class T>
+DynArray<T>::DynArray(std::initializer_list<T> const& list)
+{
+    size_t size = list.size();
+    if (size > 0)
+    {
+        m_size = m_capacity = size;
+        m_data = new T[m_capacity];
+        T* ptr = m_data;
+        typedef typename std::initializer_list<T>::iterator iterator;
+        for(iterator it = list.begin(); it != list.end(); ++it)
+        {
+            *(ptr++) = *it;
+        }
+    }
 }
 
 template<class T>
