@@ -107,7 +107,6 @@ void DynArray<T>::reserve(size_t newCapacity)
         m_size = m_capacity;
     }
     DynArray<T> temp(*this);    // copy to temp
-    delete [] m_data;
     *this = std::move(temp);    // grabbing data from temp
 }
 
