@@ -3,6 +3,7 @@ message(${PROJECT_SOURCE_DIR}/oop)
 
 add_executable (templates
   Array.h
+  BinaryTree.h
   DynArray.h
   List.h
   main.cpp
