@@ -10,6 +10,8 @@ add_executable (DynStructures
   main.cpp
   Queue.cpp
   Queue.h
+  SingleLinkedList.cpp
+  SingleLinkedList.h
   Stack.cpp
   Stack.h
 )
