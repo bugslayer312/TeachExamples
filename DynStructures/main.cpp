@@ -1,4 +1,8 @@
 #include "Data.h"
+//#include "List.h"
+//#include "Stack.h"
+//#include "Queue.h"
+#include "DoubleLinkedList.h"
 #include "SingleLinkedList.h"
 //#include "Stack.h"
 //#include "Queue.h"
@@ -173,6 +177,5 @@ int main()
     // TestDoubleLinkedList();
 
     TestSingleLinkedListSort();
-
     return 0;
 }
