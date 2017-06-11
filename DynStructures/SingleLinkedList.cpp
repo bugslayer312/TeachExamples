@@ -1,8 +1,8 @@
-#include "List.h"
+#include "SingleLinkedList.h"
 
 #include <cstdlib>
 
-struct ListNode* Create(struct Data* listData)
+struct ListNode* CreateSingleLinkedList(struct Data* listData)
 {
     struct ListNode* result = (struct ListNode*)malloc(sizeof(struct ListNode));
     result->ListData = listData;
@@ -140,4 +140,46 @@ void PrintList(struct ListNode* first)
         PrintData(p->ListData);
         p = p->Next;
     }
+}
+
+void SwapData(struct ListNode* node1, struct ListNode* node2)
+{
+    struct Data* tmp = node1->ListData;
+    node1->ListData = node2->ListData;
+    node2->ListData = tmp;
+}
+
+void BubbleSortIteration(struct ListNode* first, int nodeCount)
+{
+    for (struct ListNode* curNode = first; nodeCount > 0; --nodeCount)
+    {
+        struct ListNode* nextNode = curNode->Next;
+        if (CompareByName(curNode->ListData, nextNode->ListData) > 0)
+        {
+            SwapData(curNode, nextNode);
+        }
+        curNode = nextNode;
+    }
+}
+
+void BubbleSort(struct ListNode* first)
+{
+    for (int iterCount = GetCount(first) - 1; iterCount > 0; --iterCount)
+    {
+        BubbleSortIteration(first, iterCount);
+    }
+}
+
+struct ListNode* Reverse(struct ListNode* first)
+{
+    struct ListNode* prev = NULL;
+    struct ListNode* cur = first;
+    while (cur)
+    {
+        struct ListNode* next = cur->Next;
+        cur->Next = prev;
+        prev = cur;
+        cur = next;
+    }
+    return prev;
 }

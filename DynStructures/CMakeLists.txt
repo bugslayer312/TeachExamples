@@ -5,11 +5,11 @@ add_executable (DynStructures
   Data.h
   DoubleLinkedList.cpp
   DoubleLinkedList.h
-  List.cpp
-  List.h
   main.cpp
   Queue.cpp
   Queue.h
+  SingleLinkedList.cpp
+  SingleLinkedList.h
   Stack.cpp
   Stack.h
 )
