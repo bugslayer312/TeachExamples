@@ -1,0 +1,14 @@
+add_executable(advance
+        Animals.h
+	Employee.cpp
+	Employee.h
+	Graphics.cpp
+	Graphics.h
+	main.cpp
+        Person.cpp
+        Person.h
+        String.cpp
+        String.h
+        Student.cpp
+	Student.h
+	)
