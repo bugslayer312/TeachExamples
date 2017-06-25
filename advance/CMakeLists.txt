@@ -4,9 +4,13 @@ add_executable(advance
 	Employee.h
 	Graphics.cpp
 	Graphics.h
+        HtmlGraphics.cpp
+        HtmlGraphics.h
 	main.cpp
         Person.cpp
         Person.h
+        Shape.cpp
+        Shape.h
         String.cpp
         String.h
         Student.cpp
