@@ -1,0 +1,10 @@
+add_executable(WeatherStation
+  GeneralWidget.cpp
+  GeneralWidget.h
+  IObserver.h
+  main.cpp
+  StatisticsWidget.cpp
+  StatisticsWidget.h
+  WeatherStation.cpp
+  WeatherStation.h
+)
