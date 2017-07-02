@@ -1,0 +1,10 @@
+add_executable(Pancakes
+  BaseOrders.cpp
+  BaseOrders.h
+  Discount.cpp
+  Discount.h
+  IOrder.h
+  main.cpp
+  Suppliments.cpp
+  Suppliments.h
+)
