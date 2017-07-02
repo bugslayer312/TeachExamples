@@ -1,0 +1,11 @@
+add_executable(Shapes
+  ConsoleGraphics.cpp
+  ConsoleGraphics.h
+  HtmlGraphics.cpp
+  HtmlGraphics.h
+  IGraphics.h
+  IShape.h
+  main.cpp
+  Shapes.cpp
+  Shapes.h
+)
