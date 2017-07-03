@@ -5,6 +5,7 @@ set (CMAKE_CXX_FLAGS "--std=c++11 ${CMAKE_CXX_FLAGS}")
 
 add_subdirectory (advance)
 add_subdirectory (DynStructures)
+add_subdirectory (Exceptions)
 add_subdirectory (Hello)
 add_subdirectory (oop)
 add_subdirectory (Pancakes)
