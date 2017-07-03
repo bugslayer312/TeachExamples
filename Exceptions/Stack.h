@@ -10,11 +10,11 @@ public:
     StackException() : std::exception()
     {
     }
-    char const* what() const override
+    char const* what() const noexcept override
     {
         return "Stack exception";
     }
-}
+};
 
 class StackIsFullException : public StackException
 {
@@ -25,9 +25,9 @@ public:
     {
     }
     
-    char const* what() const override
+    char const* what() const noexcept override
     {
-        return std::to_string("Stack is full. Max size = ") + std::to_string(m_maxSize);
+        return (std::string("Stack is full. Max size = ") + std::to_string(m_maxSize)).c_str();
     }
 };
 
@@ -38,7 +38,7 @@ public:
     {
     }
     
-    char const* what() const override
+    char const* what() const noexcept override
     {
         return "Stack is empty";
     }
