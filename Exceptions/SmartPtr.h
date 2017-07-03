@@ -42,4 +42,4 @@ public:
         Reset();
         m_ptr = ptr;
     }
-}
+};
