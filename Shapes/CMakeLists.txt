@@ -6,6 +6,8 @@ add_executable(Shapes
   IGraphics.h
   IShape.h
   main.cpp
+  Scene.cpp
+  Scene.h
   Shapes.cpp
   Shapes.h
 )
